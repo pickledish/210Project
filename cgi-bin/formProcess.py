@@ -20,16 +20,18 @@ if ('username' in form and 'password' in form):
 
 	if (!all_rows):
 		c.execute("INSERT INTO Users VALUES (?, ?)", user, pword)
-		print 'Content-Type: text/html'
-		print
-		print '''<html>
-		    <head>
-		        <title>Your account has been created!</title>
-		    </head>
-		    <body>
-		        User 
-		    </body>
-		</html>'''
+		print ('Content-Type: text/html')
+		print ()
+		print ('''<html>
+			<head>
+			<meta charset="utf-8">
+			<title> ToneTone - thanks </title>
+			</head>
+			<body>
+			<p> Thank you, the form worked and you have an acceount!</p>
+			<a href="index.html"> Back to the form</a>
+			</body>
+		</html>''')
 
 
 	else:
