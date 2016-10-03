@@ -1,4 +1,4 @@
-#!/usr/bin python
+#!/usr/bin/env python
 
 import cgitb
 import cgi
@@ -11,14 +11,16 @@ c = conn.cursor()
 
 loginForm = cgi.FieldStorage()
 
-if ('username' in form and 'password' in form):
-	user = form['username']
-	pword = form['password']
+if ('username' in loginForm and 'password' in loginForm):
+	user = loginForm['username']
+	pword = loginForm['password']
+	search = (user,)
+    
 
-	c.execute("SELECT FROM Users * WHERE username=?", user)
+	c.execute("SELECT * FROM users WHERE username=?", search)
 	all_rows = c.fetchall()
 
-	if (!all_rows):
+	if (not all_rows.isEmpty()):
 		c.execute("INSERT INTO Users VALUES (?, ?)", user, pword)
 		print ('Content-Type: text/html')
 		print ()
