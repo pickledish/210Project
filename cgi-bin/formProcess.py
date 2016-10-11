@@ -12,16 +12,17 @@ c = conn.cursor()
 loginForm = cgi.FieldStorage()
 
 if ('username' in loginForm and 'password' in loginForm):
-	user = loginForm['username']
-	pword = loginForm['password']
-	search = (user,)
+	user = loginForm['username'].value
+	pword = loginForm['password'].value
     
 
-	c.execute("SELECT * FROM users WHERE username=?", search)
+	c.execute("SELECT * FROM users WHERE username=?", [user])
 	all_rows = c.fetchall()
 
-	if (not all_rows.isEmpty()):
-		c.execute("INSERT INTO Users VALUES (?, ?)", user, pword)
+	if (not all_rows):
+		c.execute("INSERT INTO Users VALUES (?, ?)", (user, pword))
+		conn.commit()
+		conn.close()
 		print ('Content-Type: text/html')
 		print ()
 		print ('''<html>
