@@ -33,7 +33,7 @@ if('username' in loginForm and 'password' in loginForm):
 		print '<p> Thank you, the form worked and you have an acceount!</p>'
 		print 'username: ' + user + 'password: ' + pword
 		print	'''
-		<a href="index.html"> Back to the form</a>
+		<a href="/210Project/index.html"> Back to the form</a>
 		</body>
 		</html>'''
 	else:
