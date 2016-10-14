@@ -1,4 +1,4 @@
-#!C:\Python27\python.exe -u
+#!/usr/bin/python
 
 import cgitb
 import cgi
@@ -36,7 +36,7 @@ if('username' in loginForm and 'password' in loginForm):
 		<a href="index.html"> Back to the form</a>
 		</body>
 		</html>'''
- 	else:
+	else:
 		conn.commit()
 		conn.close()
 		print'<p> Your username is used by someone else already </p>'
