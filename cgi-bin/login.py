@@ -17,7 +17,7 @@ if('username' in loginForm and 'password' in loginForm):
 	c.execute("SELECT * FROM Users WHERE username=?",[user])
 	all_rows = c.fetchall()
 	if(len(all_rows)!=0):
-		if(all_rows[1]==pword):
+		if(all_rows[0][1]==pword):
 			 conn.commit()
 			 conn.close()
 			 print "Status: 303 See Other"
