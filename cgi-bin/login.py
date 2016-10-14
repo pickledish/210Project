@@ -35,7 +35,7 @@ if('username' in loginForm and 'password' in loginForm):
 					</head>
 					<body>
 			<p> Your username does not exist </p>
-			<a href="../signin.html"> Back to the form</a>
+			<a href="../login.html"> Back to the form</a>
 			</body>
 			</html>
 			'''
@@ -51,7 +51,7 @@ if('username' in loginForm and 'password' in loginForm):
 				</head>
 				<body>
 		<p> Your username and password match does not exist </p>
-		<a href="../signin.html"> Back to the form</a>
+		<a href="../login.html"> Back to the form</a>
 		</body>
 		</html>
 		'''
@@ -67,7 +67,7 @@ else:
 			</head>
 			<body>
 			   <p> input id and password </p>
-				  <a href="../signin.html"> Back to the form</a>
+				  <a href="../login.html"> Back to the form</a>
 			</body>
 	</html>
 

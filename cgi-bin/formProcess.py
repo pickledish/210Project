@@ -30,10 +30,10 @@ if('username' in loginForm and 'password' in loginForm):
 		c.execute("INSERT INTO Users VALUES (?, ?)", (user, pword))
 		conn.commit()
 		conn.close()
-		print '<p> Thank you, the form worked and you have an acceount!</p>'
-		print 'username: ' + user + 'password: ' + pword
+		print '<p> Thank you, the form worked and you have an account!</p>'
+		print 'username: ' + user + ' password: ' + pword
 		print	'''
-		<a href="/210Project/index.html"> Back to the form</a>
+		<a href="../index.html"> Back to main</a>
 		</body>
 		</html>'''
 	else:
@@ -41,7 +41,7 @@ if('username' in loginForm and 'password' in loginForm):
 		conn.close()
 		print'<p> Your username is used by someone else already </p>'
 		print'''
-		<a href="../index.html"> Back to the form</a>
+		<a href="../signin.html"> Back to the form</a>
 		</body>
 		</html>
 		'''
@@ -49,7 +49,7 @@ else:
 	conn.commit()
 	conn.close()
 	print'<p> input id and password </p>'
-	print'''	<a href="../index.html"> Back to the form</a>
+	print'''	<a href="../signin.html"> Back to the form</a>
 		</body>
 	</html>
 
