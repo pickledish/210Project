@@ -1,4 +1,5 @@
-#!/usr/bin/python
+#!C:/Python27/python.exe -u
+##!/usr/bin/python
 
 import cgitb
 import cgi
@@ -41,7 +42,7 @@ if('username' in loginForm and 'password' in loginForm):
 		conn.close()
 		print'<p> Your username is used by someone else already </p>'
 		print'''
-		<a href="../signin.html"> Back to the form</a>
+		<a href="../signup.html"> Back to the form</a>
 		</body>
 		</html>
 		'''
@@ -49,7 +50,7 @@ else:
 	conn.commit()
 	conn.close()
 	print'<p> input id and password </p>'
-	print'''	<a href="../signin.html"> Back to the form</a>
+	print'''	<a href="../signup.html"> Back to the form</a>
 		</body>
 	</html>
 
