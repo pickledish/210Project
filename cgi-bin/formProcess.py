@@ -1,5 +1,4 @@
-#!C:/Python27/python.exe -u
-##!/usr/bin/python
+#!/usr/bin/python
 
 import cgitb
 import cgi
@@ -8,7 +7,10 @@ import sqlite3
 cgitb.enable()
 
 conn = sqlite3.connect('Users.db')
+
 c = conn.cursor()
+
+c.execute('CREATE TABLE IF NOT EXISTS Users(username varchar(100) primary key, password varchar(100))')
 
 loginForm = cgi.FieldStorage()
 
