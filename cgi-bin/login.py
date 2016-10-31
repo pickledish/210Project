@@ -1,8 +1,9 @@
-#!/usr/bin/python
-##!C:/python27/python.exe
+#!C:/python27/python.exe
+##!/usr/bin/python
+
 import datetime
 import Cookie
-import os
+import os,uuid
 import cgitb
 import cgi
 import sqlite3
@@ -29,11 +30,10 @@ if('username' in loginForm and 'password' in loginForm):
 				 cookie = Cookie.SimpleCookie()
 				 cookie['session'] = str(uuid.uuid4())
 				 cookie['session']['path'] = '/'
-				 cookie['session']['expires'] = expires.strftime()
 				 expires = datetime.datetime.utcnow() + datetime.timedelta(days=60)
+				 cookie['session']['expires'] = expires.strftime("%a, %d %b %Y %H:%M:%S GMT")
 			 else:
 				 cookie = Cookie.SimpleCookie(stored_cookie_string)
-
 			 print "Status: 303 See Other"
 			 print "Location: http:../thanks.html"
 			 print cookie
