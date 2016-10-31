@@ -1,5 +1,8 @@
 #!/usr/bin/python
-
+##!C:/python27/python.exe
+import datetime
+import Cookie
+import os
 import cgitb
 import cgi
 import sqlite3
@@ -20,8 +23,20 @@ if('username' in loginForm and 'password' in loginForm):
 		if(all_rows[0][1]==pword):
 			 conn.commit()
 			 conn.close()
+			 stored_cookie_string = os.environ.get('HTTP_COOKIE')
+
+			 if not stored_cookie_string:
+				 cookie = Cookie.SimpleCookie()
+				 cookie['session'] = str(uuid.uuid4())
+				 cookie['session']['path'] = '/'
+				 cookie['session']['expires'] = expires.strftime()
+				 expires = datetime.datetime.utcnow() + datetime.timedelta(days=60)
+			 else:
+				 cookie = Cookie.SimpleCookie(stored_cookie_string)
+
 			 print "Status: 303 See Other"
 			 print "Location: http:../thanks.html"
+			 print cookie
 			 print
 		else:
 			conn.commit()

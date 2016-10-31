@@ -1,4 +1,5 @@
 #!/usr/bin/python
+##!C:/python27/python.exe
 
 import cgitb
 import cgi
