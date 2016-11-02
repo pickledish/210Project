@@ -5,11 +5,34 @@
 		<title>ToneTone-Home</title>
 	</head>
 	<body>
-		<H1> Create your Account!</H1>
-    <a href="signin.html"> Click here to Create new Account</a>
-    <H2> Log in</H2>
-    <a href="login.html"> Click here to Log in</a>
-
+		<div id = "loginInfo">
+				<H2> Create your Account!</H2>
+		    <a href="signin.html">Click here to Create new Account</a>
+				<H2> Log in</H2>
+		    <a href="login.html"> Click here to Log in</a>
+		</div>
 	</body>
-
+	<script type = "text/javascript">
+	function readCookie(name) {
+		var nameEQ = name + "=";
+		var ca = document.cookie.split(';');
+		for(var i=0;i < ca.length;i++) {
+			var c = ca[i];
+			while (c.charAt(0)==' ') c = c.substring(1,c.length);
+			if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+		}
+		return null;
+	}
+		var mycookie = readCookie('session');
+		console.log(mycookie);
+		console.log("Here gayeon loves nedward");
+		if(mycookie==null){
+			console.log("here cookie does not exist");
+		}
+		else{
+			console.log("Here gayeon also loves nedward!!!!!!!!");
+			window.location = "http:/thanks.html"
+//			document.getElementById('loginInfo').innerHTML = "<p>You are currently logged in</p>"
+		}
+	</script>
 </html>

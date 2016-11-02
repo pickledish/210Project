@@ -1,5 +1,5 @@
-#!/usr/bin/python
-##!C:/python27/python.exe
+#!C:/python27/python.exe
+##!/usr/bin/python
 
 import cgitb
 import cgi

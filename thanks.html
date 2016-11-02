@@ -6,6 +6,20 @@
 	</head>
 	<body>
 	<p> You've logged in and this is the main page</p>
-	<a href="index.html"> This should be the log out button</a>
+	<form method="post" action="cgi-bin/login.py">
+		<input type = "button" value ="Log out" onclick = "logout()">
+		<script>
+			function logout(){
+				var cookies = document.cookie.split(";");
+				for (var i = 0; i < cookies.length; i++) {
+	 				var cookie = cookies[i];
+	 				var eqPos = cookie.indexOf("=");
+	 				var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+	 				document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+ 			}
+				window.location = "http:/index.html"
+		}
+		</script>
+	</form>
 	</body>
 </html>
