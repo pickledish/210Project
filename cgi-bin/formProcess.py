@@ -21,7 +21,7 @@ print
 print '''<html>
 		<head>
 		<meta charset="utf-8">
-		<title> ToneTone - thanks </title>
+		<title> ToneTone - Account creation success </title>
 		</head>
 		<body>'''
 

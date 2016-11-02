@@ -32,7 +32,7 @@ if('username' in loginForm and 'password' in loginForm):
 				 expires = datetime.datetime.utcnow() + datetime.timedelta(days=60)
 				 cookie['session']['expires'] = expires.strftime("%a, %d %b %Y %H:%M:%S GMT")
 	 			 print "Status: 303 See Other"
-	 			 print "Location: http:../thanks.html"
+	 			 print "Location: http:../main.html"
 	 			 print cookie
 	 			 print
 			 else:
@@ -45,7 +45,7 @@ if('username' in loginForm and 'password' in loginForm):
 	 					</head>
 	 					<body>
 			 			<p> You've already logged in </p>
-			 			<a href="../thanks.html"> Go the thanks</a>
+			 			<a href="../main.html"> Go the main</a>
 			 			</body>
 			 			</html>
 			 		'''
