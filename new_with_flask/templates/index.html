@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+
+		<meta charset=utf-8>
+		<meta name=description content="">
+		<meta name=viewport content="width=device-width, initial-scale=1">
+
+		<title> ToneTone -- Welcome! </title>
+
+		<link rel="stylesheet" type="text/css" href="/static/index.css">
+
+	</head>
+
+	<body>
+
+		<div id="contentContainer">
+
+		<div id="mainContent">
+
+			{% if not loggedin %}
+
+				{% if status == "failure" %}
+
+					Sorry, that username and password combo was not correct. <br/>
+
+					<a href="/"> Try again? </a>
+
+				{% else %}
+
+					Hello! Welcome to ToneTone! Please log in below: <br/>
+
+					<form id="loginform" action="/" method="POST">
+
+						<p> <input type="text" name="username" placeholder="Username"> </p>
+						<p> <input type="text" name="password" placeholder="Password"> </p>
+
+						<p> <input type="submit" value="Log in!"> </p>
+
+					</form>
+
+					<a href="/newAccount/"> But I don't have an account yet! </a>
+
+				{% endif %}
+
+			{% else %}
+
+				Hello how are you today <b> {{ user }} </b> <br/>
+
+				Congrats enjoy the app there's nothing here <br/>
+
+				Want to not be here anymore? <a href="/logout/"> Log out Here </a>
+
+			{% endif %}
+
+		</div>
+
+		</div>
+
+	</body>
+
+</html>

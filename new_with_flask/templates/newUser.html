@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+
+		<meta charset=utf-8>
+		<meta name=description content="">
+		<meta name=viewport content="width=device-width, initial-scale=1">
+
+		<title> ToneTone -- Make a New Account! </title>
+
+		<link rel="stylesheet" type="text/css" href="/static/index.css">
+
+	</head>
+
+	<body>
+
+		<div id="contentContainer">
+
+		<div id="mainContent">
+
+			{% if status == "failure" %}
+
+				Sorry! The account you just tried to make already exists. <br/>
+
+				<a href="/newAccount/"> Try again? </a>
+
+			{% elif status == "success" %}
+
+				Hooray! You made an account! Now go back and login! <br/>
+
+				<a href="/"> Go back home! </a>
+
+			{% else %}
+
+				Want to make an account? <br/>
+
+				It's as easy as 123 just give us all this information: <br/>
+
+				<form id="addUserForm" action="/newAccount/" method="POST">
+
+					<p> <input type="text" name="username" placeholder="Username"> </p>
+					<p> <input type="text" name="password" placeholder="Password"> </p>
+
+					<p> <input type="submit" value="Make Account!"> </p>
+
+				</form>
+
+			{% endif %}
+
+		</div>
+
+		</div>
+
+	</body>
+
+</html>
