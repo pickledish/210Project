@@ -34,3 +34,7 @@ body {
 	width: auto;
 	height: auto;
 }
+
+button {
+	width: 100px;
+}

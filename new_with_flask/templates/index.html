@@ -10,6 +10,8 @@
 		<title> ToneTone -- Welcome! </title>
 
 		<link rel="stylesheet" type="text/css" href="/static/index.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="/static/index.js"></script>
 
 	</head>
 
@@ -48,7 +50,9 @@
 
 				Hello how are you today <b> {{ user }} </b> <br/>
 
-				Congrats enjoy the app there's nothing here <br/>
+				Click the buttons below to play a random, probably-awful chord! <br/>
+
+				<button id="play"> Nice Chord </button> <button id="playRandom"> Random Chord </button> <br/>
 
 				Want to not be here anymore? <a href="/logout/"> Log out Here </a>
 
