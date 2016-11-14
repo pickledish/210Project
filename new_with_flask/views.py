@@ -132,6 +132,8 @@ def CEGInsert():
 		newReaction = Reaction(chord = chordCEG, username_of_reactor = user, reaction_text = reaction, time_created = now)
 		newReaction.save()
 
+		return render_template("ceg.html", status = "Success")
+
 
 
 
