@@ -8,7 +8,7 @@ from flask import render_template, request, make_response
 import datetime
 
 app = Flask(__name__)
-db = SqliteDatabase("UserTable.db")
+db = SqliteDatabase("BigTable.db")
 
 # Our "User" table, it has character fields for username and password, and a date field
 class User(Model):
@@ -19,10 +19,20 @@ class User(Model):
 	class Meta:
 		database = db # This model uses the "UserTable.db" database. Don't worry about this
 
+# Our "Reaction" table
+class Reaction(Model):
+	chord = CharField
+	username_of_reactor = CharField()
+	reaction_text = CharField()
+	time_created = DateTimeField()
+
+	class Meta:
+		database = db # This model uses the "UserTable.db" database. Don't worry about this
+
 # Function to create the tables for the first time. This is only run once, from the python3 interpreter directly
 def create_tables():
     db.connect()
-    db.create_tables([User])
+    db.create_tables([User, Reaction])
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
