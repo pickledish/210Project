@@ -109,18 +109,9 @@ def logout():
 
 	return rsp
 
-@app.route('/CEG/')
+@app.route('/CEG/', methods=['POST', 'GET'])
 def CEGPage():
 
-	# To log a user out, we just delete their session cookie and return them to the not-logged-in index page
-	rsp = make_response(render_template("ceg.html"))
-
-	return rsp
-
-@app.route('/CEG/', methods=['POST', 'GET'])
-def CEGInsert():
-
-	# This means someone tried to log in, so we need to process it
 	if (request.method == 'POST'):
 
 		user = request.cookies['logged_in_user']
@@ -132,11 +123,10 @@ def CEGInsert():
 		newReaction = Reaction(chord = chordCEG, username_of_reactor = user, reaction_text = reaction, time_created = now)
 		newReaction.save()
 
-		return render_template("ceg.html", status = "Success")
+		return render_template("ceg.html", status = "success")
 
+	# To log a user out, we just delete their session cookie and return them to the not-logged-in index page
+	rsp = make_response(render_template("ceg.html"))
 
-
-
-
-
+	return rsp
 
