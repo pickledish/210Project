@@ -99,6 +99,14 @@ def logout():
 
 	return rsp
 
+@app.route('/CEG/')
+def CEGPage():
+
+	# To log a user out, we just delete their session cookie and return them to the not-logged-in index page
+	rsp = make_response(render_template("ceg.html"))
+
+	return rsp
+
 
 
 

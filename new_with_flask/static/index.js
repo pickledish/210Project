@@ -182,4 +182,17 @@ $(document).ready(function() {
 		playNotes(freq1, freq2, freq3);
 
 	});
+
+	$("#playCEG").click(function( event ) {
+
+		var freq1 = noteValues['C5'];
+		var freq2 = noteValues['E5'];
+		var freq3 = noteValues['G5'];
+
+		playNotes(freq1, freq2, freq3);
+
+	});
+
+
+
 });
