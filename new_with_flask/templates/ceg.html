@@ -33,7 +33,7 @@
 
 						<p> <input type="submit" value="Submit"> </p>
 
-					</form>
+			</form>
 
 			{% if status == "success" %}
 
@@ -41,6 +41,15 @@
 
 			{% endif %}
 
+				<table>
+					{% for item in items %}
+	    <tr>
+	        <td>{item[username_of_reactor]}</td>
+	        <td>{item[reaction_text]}</td>
+	        <td>{item[time_created]}</td>
+	    </tr>
+			{% endfor %}
+		</table>
 		</div>
 
 		</div>

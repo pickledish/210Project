@@ -42,7 +42,7 @@ def index():
 
 		usern = request.form["username"]
 		passw = request.form["password"]
-		
+
 		# See if the person exists in the database. If not, the whole thing fails cause they have no account
 		try:
 			this_person = User.get(User.username == usern)
@@ -81,12 +81,12 @@ def makeAccount():
 
 		usern = request.form["username"]
 		passw = request.form["password"]
-		
+
 		# If the "get" function errors out with a DoesNotExist, that's good! So we insert a new user into it
 		try:
 			this_person = User.get(User.username == usern)
 		except DoesNotExist:
-			
+
 			now = datetime.datetime.now()
 			hashedpw = passw # TODO: No but like actually hash it please
 			newUser = User(username = usern, hashed_password = hashedpw, time_created = now)
@@ -114,21 +114,19 @@ def CEGPage():
 
 	if (request.method == 'POST'):
 
-		print("HI INSIDE POST")
-
 		user = request.cookies['logged_in_user']
 
 		chordCEG = "ceg"
 		reaction = request.form["reaction"]
 		now = datetime.datetime.now()
-		 # TODO: No but like actually hash it please
 		newReaction = Reaction(chord = chordCEG, username_of_reactor = user, reaction_text = reaction, time_created = now)
 		newReaction.save()
 
 		return render_template("ceg.html", status = "success")
-
-	# To log a user out, we just delete their session cookie and return them to the not-logged-in index page
+#*******************needs to be fixed, the lines below throws error*****
+#	reactionEntries = Reaction.query.filter_by(chord='ceg').all()
+#
+#	rsp = make_response(render_template("ceg.html", items = reactionEntries))
+#********************************************
 	rsp = make_response(render_template("ceg.html"))
-
 	return rsp
-
