@@ -21,7 +21,7 @@ class User(Model):
 
 # Our "Reaction" table
 class Reaction(Model):
-	chord = CharField
+	chord = CharField()
 	username_of_reactor = CharField()
 	reaction_text = CharField()
 	time_created = DateTimeField()
@@ -123,38 +123,15 @@ def CEGInsert():
 	# This means someone tried to log in, so we need to process it
 	if (request.method == 'POST'):
 
+		user = request.cookies['logged_in_user']
+
+		chordCEG = "ceg"
 		reaction = request.form["reaction"]
+		now = datetime.datetime.now()
+		 # TODO: No but like actually hash it please
+		newReaction = Reaction(chord = chordCEG, username_of_reactor = user, reaction_text = reaction, time_created = now)
+		newReaction.save()
 
-		
-		# See if the person exists in the database. If not, the whole thing fails cause they have no account
-		try:
-			this_person = User.get(User.username == usern)
-		except DoesNotExist:
-			return render_template("index.html", status = "failure")
-
-		old_time = this_person.time_created
-		attempted_hashed_pw = passw # TODO: No but like actually hash it
-
-		# This will fail if their password was wrong, so we once again return with a failed state
-		if (attempted_hashed_pw != this_person.hashed_password):
-			return render_template("index.html", status = "failure")
-
-		# If we made it this far, that means they exist and typed the password right, so log them in
-		# We're using make_response() because apparently you can only set cookies after the template has been rendered
-		rsp = make_response(render_template("index.html", loggedin = True, user = usern))
-
-		# Here, we set up the expiration date for the cookie
-		expire_date = datetime.datetime.now()
-		expire_date = expire_date + datetime.timedelta(days=30)
-		rsp.set_cookie('logged_in_user', usern, expires=expire_date)
-
-		return rsp
-
-	if ('logged_in_user' in request.cookies):
-		return render_template("index.html", loggedin = True, user = request.cookies['logged_in_user'])
-
-	else:
-		return render_template("index.html", loggedin = False)
 
 
 

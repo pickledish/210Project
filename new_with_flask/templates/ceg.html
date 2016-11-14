@@ -27,13 +27,19 @@
 
 			Type your emotional response (e.g. I'm so happy right now!) to the chord below for others to see on this page! <br/>
 
-			<form id="CEGResponseForm" action="/" method="POST">
+			<form id="CEG" action="/" method="POST">
 
-						<p> <input type="text" name="response" placeholder="I'm so happy right now!"> </p>
+						<p> <input type="text" name="reaction" placeholder="I'm so happy right now!"> </p>
 
 						<p> <input type="submit" value="Submit"> </p>
 
 					</form>
+
+			{% if status == "success" %}
+
+				Congrats, your reaction was recorded! <br/>
+
+			{% endif %}
 
 		</div>
 
