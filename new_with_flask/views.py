@@ -114,6 +114,8 @@ def CEGPage():
 
 	if (request.method == 'POST'):
 
+		print("HI INSIDE POST")
+
 		user = request.cookies['logged_in_user']
 
 		chordCEG = "ceg"
