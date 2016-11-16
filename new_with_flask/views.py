@@ -109,24 +109,26 @@ def logout():
 
 	return rsp
 
-@app.route('/CEG/', methods=['POST', 'GET'])
-def CEGPage():
+@app.route('/ajaxCEG/', methods=['POST', 'GET'])
+def ajaxCEG():
 
-	if (request.method == 'POST'):
+	if (request.method == "POST"):
 
 		user = request.cookies['logged_in_user']
-
-		chordCEG = "ceg"
-		reaction = request.form["reaction"]
+		chordCEG = "CEG"
+		reaction = request.form["reviewText"]
+		print (reaction)
 		now = datetime.datetime.now()
+
 		newReaction = Reaction(chord = chordCEG, username_of_reactor = user, reaction_text = reaction, time_created = now)
 		newReaction.save()
 
-		return render_template("ceg.html", status = "success")
-#*******************needs to be fixed, the lines below throws error*****
-#	reactionEntries = Reaction.query.filter_by(chord='ceg').all()
-#
-#	rsp = make_response(render_template("ceg.html", items = reactionEntries))
-#********************************************
+	reactionEntries = Reaction.select().where(Reaction.chord == "CEG")
+	return render_template("comments.html", reviews = reactionEntries)
+
+
+@app.route('/CEG/')
+def CEGPage():
+
 	rsp = make_response(render_template("ceg.html"))
 	return rsp

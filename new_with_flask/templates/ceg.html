@@ -10,8 +10,9 @@
 		<title> ToneTone -- Welcome! </title>
 
 		<link rel="stylesheet" type="text/css" href="/static/index.css">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 		<script src="/static/index.js"></script>
+		<script src="/static/ceg.js"></script>
 
 	</head>
 
@@ -23,33 +24,17 @@
 
 			CEG Responses are here! <br/>
 
-			<button id="playCEG"> CEG Chord </button> <br/>
+			<button id="playCEG"> CEG Chord </button> <br/> <br/>
 
-			Type your emotional response (e.g. I'm so happy right now!) to the chord below for others to see on this page! <br/>
+			Type your emotional response (e.g. I'm so happy right now!) <br/> 
+			to the chord below for others to see on this page! <br/> <br/>
 
-			<form id="CEGInsert" action="/CEG/" method="POST">
+			<p> <input type="text" id="reaction" placeholder="I'm so happy right now!"> </p>
 
-						<p> <input type="text" name="reaction" placeholder="I'm so happy right now!"> </p>
+			<p> <button id="submit"> Yeah hi click me submit </button> </p> <br/>
 
-						<p> <input type="submit" value="Submit"> </p>
+			<div id="reviewContainer">Nothing yet</div>
 
-			</form>
-
-			{% if status == "success" %}
-
-				Congrats, your reaction was recorded! Yay!  <br/>
-
-			{% endif %}
-
-				<table>
-					{% for item in items %}
-	    <tr>
-	        <td>{item[username_of_reactor]}</td>
-	        <td>{item[reaction_text]}</td>
-	        <td>{item[time_created]}</td>
-	    </tr>
-			{% endfor %}
-		</table>
 		</div>
 
 		</div>

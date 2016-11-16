@@ -1,0 +1,28 @@
+<style type="text/css">
+	.review {
+		height: auto;
+		padding: 10px;
+		width: 90%;
+		border: 2px solid grey;
+		display: inline-block;
+		margin-bottom: 20px;
+	}
+
+	.info {
+		text-align: left;
+		color: grey;
+		font-size: 9pt;
+	}
+</style>
+
+{% for r in reviews %}
+
+	<div class="review"> 
+
+		<span class="info">User {{r.username_of_reactor}} posted on {{ r.time_created.strftime('%Y-%m-%d') }}: </span> <br/>
+
+		{{r.reaction_text}}
+
+	</div>
+
+{% endfor %}

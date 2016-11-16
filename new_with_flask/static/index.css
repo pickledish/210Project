@@ -9,24 +9,24 @@ html {
 }
 
 body {
-	height: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-
 	font-family: sans-serif;
 	line-height: 200%;
 }
 
+#reaction {
+	width: 90%;
+}
+
+#reviewContainer {
+	text-align: center;
+}
+
 #contentContainer {
-	width: 30vw;
-	height: 30vh;
+	margin: 20px auto 20px auto;
+	width: 40vw;
+	height: auto;
 	border: 2px solid grey;
 	border-radius: 5px;
-
-	display: flex;
-	align-items: center;
-	justify-content: center;
 }
 
 #mainContent {
@@ -36,5 +36,5 @@ body {
 }
 
 button {
-	width: 100px;
+	padding: 5px 10px 5px 10px;
 }
