@@ -124,7 +124,17 @@ def ajaxCEG():
 		newReaction.save()
 
 	reactionEntries = Reaction.select().where(Reaction.chord == "CEG")
-	return render_template("comments.html", reviews = reactionEntries)
+	moods = []
+	for each in reactionEntries:
+		if("sad" in each.reaction_text):
+			moods.append("sad")
+		elif("excited" in each.reaction_text):
+			moods.append("excited")
+		elif("love" in each.reaction_text):
+			moods.append("love")
+		else:
+			moods.append("happy")
+	return render_template("comments.html", reviews = reactionEntries, review_moods = moods)
 
 
 @app.route('/CEG/')
