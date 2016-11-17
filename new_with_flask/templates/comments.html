@@ -1,11 +1,43 @@
 <style type="text/css">
-	.review {
+	.review_sad {
 		height: auto;
 		padding: 10px;
 		width: 90%;
 		border: 2px solid grey;
 		display: inline-block;
 		margin-bottom: 20px;
+		background-image: url({{ url_for('static', filename = 'sad.png') }}) ;
+		background-size:65px 65px;
+	}
+	.review_excited {
+		height: auto;
+		padding: 10px;
+		width: 90%;
+		border: 2px solid grey;
+		display: inline-block;
+		margin-bottom: 20px;
+		background-image:url({{ url_for('static', filename = 'excited.png') }});
+		background-size:65px 65px;
+	}
+	.review_love {
+		height: auto;
+		padding: 10px;
+		width: 90%;
+		border: 2px solid grey;
+		display: inline-block;
+		margin-bottom: 20px;
+		background-image:url({{ url_for('static', filename = 'love.png') }});
+		background-size:65px 65px;
+	}
+	.review_happy {
+		height: auto;
+		padding: 10px;
+		width: 90%;
+		border: 2px solid grey;
+		display: inline-block;
+		margin-bottom: 20px;
+		background-image:url({{ url_for('static', filename = 'happy.png') }});
+		background-size:65px 65px;
 	}
 
 	.info {
@@ -16,9 +48,19 @@
 </style>
 
 {% for r in reviews %}
+{% set m = review_moods[loop.index - 1] %}
 
-	<div class="review"> 
 
+{% if m == "sad" %}
+	<div class="review_sad">
+{% elif m == "excited" %}
+	<div class="review_excited">
+{% elif m == "love" %}
+	<div class="review_love">
+{% else %}
+	<div class="review_happy">
+{% endif %}
+	
 		<span class="info">User {{r.username_of_reactor}} posted on {{ r.time_created.strftime('%Y-%m-%d') }}: </span> <br/>
 
 		{{r.reaction_text}}
