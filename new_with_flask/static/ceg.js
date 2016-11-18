@@ -10,8 +10,6 @@ $(document).ready(function($) {
 	$('#submit').on('click', function(event) {
 
 		event.preventDefault();
-		document.getElementById("reviewContainer").textContent = "Thanks one sec . . .";
-
 		var textField = document.getElementById("reaction").value;
 
 		$.ajax({
@@ -25,7 +23,7 @@ $(document).ready(function($) {
 			}
 		});
 	});
-	$('#delete').on('click',function(event)){
+	$('#delete').on('click', function(event) {
 		event.preventDefault();
 		var reaction = document.getElementById("info");
 		var reactor = reaction.dataset.name
@@ -35,11 +33,11 @@ $(document).ready(function($) {
 			url: "/ajaxCEG/",
 			data: {reactorName: reactor,
 						 reactionTime: reactime,
-					 	 sender: "delete"},
+						 sender: "delete"},
 			dataType: "html",
 			success: function(html){
 				$("#reviewContainer").html(html);
 			}
 		})
-	}
+	});
 });
