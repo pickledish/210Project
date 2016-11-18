@@ -50,7 +50,6 @@
 {% for r in reviews %}
 {% set m = review_moods[loop.index - 1] %}
 
-
 {% if m == "sad" %}
 	<div class="review_sad">
 {% elif m == "excited" %}
@@ -60,7 +59,7 @@
 {% else %}
 	<div class="review_happy">
 {% endif %}
-	
+
 		<span class="info">User {{r.username_of_reactor}} posted on {{ r.time_created.strftime('%Y-%m-%d') }}: </span> <br/>
 
 		{{r.reaction_text}}

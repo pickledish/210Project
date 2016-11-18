@@ -123,7 +123,7 @@ def ajaxCEG():
 		newReaction = Reaction(chord = chordCEG, username_of_reactor = user, reaction_text = reaction, time_created = now)
 		newReaction.save()
 
-	reactionEntries = Reaction.select().where(Reaction.chord == "CEG")
+	reactionEntries = Reaction.select().where(Reaction.chord == "CEG").order_by(Reaction.time_created.desc())
 	moods = []
 	for each in reactionEntries:
 		if("sad" in each.reaction_text):
