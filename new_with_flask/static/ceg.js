@@ -17,11 +17,29 @@ $(document).ready(function($) {
 		$.ajax({
 			type: "POST",
 			url: "/ajaxCEG/",
-			data: {reviewText: textField},
+			data: {reviewText: textField,
+						 sender: "submit"},
 			dataType: "html",
 			success: function(html){
 				$("#reviewContainer").html(html);
 			}
 		});
 	});
+	$('#delete').on('click',function(event)){
+		event.preventDefault();
+		var reaction = document.getElementById("info");
+		var reactor = reaction.dataset.name
+		var reactime = reaction.dataset.time
+		$.ajax({
+			type: "POST",
+			url: "/ajaxCEG/",
+			data: {reactorName: reactor,
+						 reactionTime: reactime,
+					 	 sender: "delete"},
+			dataType: "html",
+			success: function(html){
+				$("#reviewContainer").html(html);
+			}
+		})
+	}
 });

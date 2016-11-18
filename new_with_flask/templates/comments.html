@@ -39,7 +39,10 @@
 		background-image:url({{ url_for('static', filename = 'happy.png') }});
 		background-size:65px 65px;
 	}
-
+  /*.btn{
+		font-size: 12px
+		background-color: green
+	}*/
 	.info {
 		text-align: left;
 		color: grey;
@@ -60,10 +63,13 @@
 	<div class="review_happy">
 {% endif %}
 
-		<span class="info">User {{r.username_of_reactor}} posted on {{ r.time_created.strftime('%Y-%m-%d') }}: </span> <br/>
+		<span class="info" data-name={{r.username_of_reactor}} data-time={{r.time_created}}>User {{r.username_of_reactor}} posted on {{ r.time_created.strftime('%Y-%m-%d') }}: </span> <br/>
 
 		{{r.reaction_text}}
 
+		{% if r.username_of_reactor == curuser %}
+	</br><p><button id = "edit" class="btn"> Edit </button> <button id = "delete" class="btn"> Delete </button></p>
+		{% endif %}
 	</div>
 
 {% endfor %}

@@ -113,7 +113,8 @@ def logout():
 def ajaxCEG():
 
 	if (request.method == "POST"):
-
+		# senttype = request.form["sender"]
+		# if(senttype == "submit"):
 		user = request.cookies['logged_in_user']
 		chordCEG = "CEG"
 		reaction = request.form["reviewText"]
@@ -122,6 +123,9 @@ def ajaxCEG():
 
 		newReaction = Reaction(chord = chordCEG, username_of_reactor = user, reaction_text = reaction, time_created = now)
 		newReaction.save()
+		# elif(request.sender == "delete"):
+		# 	reactionToRemove = Reaction.select().where(Reaction.username_of_reactor == request.reactor,Reaction.time_created == request.reactionTime)
+		# 	Reaction.delete(reactionToRemove)
 
 	reactionEntries = Reaction.select().where(Reaction.chord == "CEG").order_by(Reaction.time_created.desc())
 	moods = []
@@ -134,7 +138,7 @@ def ajaxCEG():
 			moods.append("love")
 		else:
 			moods.append("happy")
-	return render_template("comments.html", reviews = reactionEntries, review_moods = moods)
+	return render_template("comments.html", reviews = reactionEntries, review_moods = moods, curuser = request.cookies['logged_in_user'])
 
 
 @app.route('/CEG/')
