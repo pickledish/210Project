@@ -10,6 +10,8 @@ $(document).ready(function($) {
 	$('#submit').on('click', function(event) {
 
 		event.preventDefault();
+		document.getElementById("reviewContainer").textContent = "Thanks one sec . . .";
+
 		var textField = document.getElementById("reaction").value;
 
 		$.ajax({
@@ -23,21 +25,21 @@ $(document).ready(function($) {
 			}
 		});
 	});
-	$('#delete').on('click', function(event) {
-		event.preventDefault();
-		var reaction = document.getElementById("info");
-		var reactor = reaction.dataset.name
-		var reactime = reaction.dataset.time
-		$.ajax({
-			type: "POST",
-			url: "/ajaxCEG/",
-			data: {reactorName: reactor,
-						 reactionTime: reactime,
-						 sender: "delete"},
-			dataType: "html",
-			success: function(html){
-				$("#reviewContainer").html(html);
-			}
-		})
-	});
+
+	// $('#delete').on('click',function(event){
+	// 	event.preventDefault();
+	// 	var timeValue = event.target.attributes.getNamedItem('data-name').value;
+	//
+	// 	$.ajax({
+	// 		type: "POST",
+	// 		url: "/ajaxCEG/",
+	// 		data: {reactionTime: timeValue,
+	// 				 	 sender: "delete"},
+	// 		dataType: "html",
+	// 		success: function(html){
+	// 			$("#reviewContainer").html(html);
+	// 		}
+	// 	});
+	// });
+
 });

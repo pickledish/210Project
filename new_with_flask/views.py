@@ -113,20 +113,19 @@ def logout():
 def ajaxCEG():
 
 	if (request.method == "POST"):
-		# senttype = request.form["sender"]
-		# if(senttype == "submit"):
-		user = request.cookies['logged_in_user']
-		chordCEG = "CEG"
-		reaction = request.form["reviewText"]
-		print (reaction)
-		now = datetime.datetime.now()
+		senttype = request.form["sender"]
+		if(senttype == "submit"):
+			user = request.cookies['logged_in_user']
+			chordCEG = "CEG"
+			reaction = request.form["reviewText"]
+			print (reaction)
+			now = datetime.datetime.now()
 
-		newReaction = Reaction(chord = chordCEG, username_of_reactor = user, reaction_text = reaction, time_created = now)
-		newReaction.save()
-		# elif(request.sender == "delete"):
-		# 	reactionToRemove = Reaction.select().where(Reaction.username_of_reactor == request.reactor,Reaction.time_created == request.reactionTime)
-		# 	Reaction.delete(reactionToRemove)
-
+			newReaction = Reaction(chord = chordCEG, username_of_reactor = user, reaction_text = reaction, time_created = now)
+			newReaction.save()
+		elif(senttype == "delete"):
+			toDelete = Reaction.get(Reaction.time_created == request.form["reactionTime"])
+			toDelete.delete_instance()
 	reactionEntries = Reaction.select().where(Reaction.chord == "CEG").order_by(Reaction.time_created.desc())
 	moods = []
 	for each in reactionEntries:
