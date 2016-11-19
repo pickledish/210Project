@@ -21,25 +21,10 @@ $(document).ready(function($) {
 						 sender: "submit"},
 			dataType: "html",
 			success: function(html){
+				$("#reaction").val("");
 				$("#reviewContainer").html(html);
 			}
 		});
 	});
-
-	// $('#delete').on('click',function(event){
-	// 	event.preventDefault();
-	// 	var timeValue = event.target.attributes.getNamedItem('data-name').value;
-	//
-	// 	$.ajax({
-	// 		type: "POST",
-	// 		url: "/ajaxCEG/",
-	// 		data: {reactionTime: timeValue,
-	// 				 	 sender: "delete"},
-	// 		dataType: "html",
-	// 		success: function(html){
-	// 			$("#reviewContainer").html(html);
-	// 		}
-	// 	});
-	// });
 
 });

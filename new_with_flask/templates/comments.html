@@ -65,19 +65,19 @@
 	<div class="review_happy">
 {% endif %}
 
-    <span class="info">User {{r.username_of_reactor}} posted on {{ r.time_created }}: </span> <br/>
+    <span class="info">User {{r.username_of_reactor}} posted on {{ r.time_created.strftime('%Y-%m-%d') }}: </span> <br/>
 
 		{{r.reaction_text}}
 
 		{% if r.username_of_reactor == curuser %}
-	</br><p><button id = "edit" class="btn"> Edit </button> <button id = "delete" data-datetime = "{{r.time_created}}" class="btn"> Delete </button></p>
+	</br><p><button class = "edit" class="btn"> Edit </button> <button class = "delete" data-datetime = "{{r.time_created}}" class="btn"> Delete </button></p>
 		{% endif %}
 	</div>
 
 {% endfor %}
 
 <script>
-$('#delete').on('click',function(event){
+$('.delete').on('click',function(event){
   event.preventDefault();
   var timeValue = event.target.attributes.getNamedItem('data-datetime').value;
   $.ajax({
