@@ -1,0 +1,27 @@
+<style type="text/css">
+	.r {
+		height: auto;
+		padding: 10px;
+		width: 60%;
+		border: 2px solid grey;
+		display: inline-block;
+		margin-bottom: 20px;
+	}
+
+	.info {
+		text-align: left;
+		color: grey;
+		font-size: 9pt;
+	}
+</style>
+
+<div class="r">
+{% for chord in resultChords %}
+
+    <span class="info">The results are: </span> <br/>
+
+    <a href="{{chord}}">  {{chord}} </a> <br/>
+
+{% endfor %}
+
+</div>
