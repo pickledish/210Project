@@ -152,8 +152,8 @@ def searchPage():
 	rsp = make_response(render_template("search.html"))
  	return rsp
  
- @app.route('/ajaxsearch/', methods=['POST', 'GET'])
- def ajaxsearch():
+@app.route('/ajaxsearch/', methods=['POST', 'GET'])
+def ajaxsearch():
  	resultChords = []
  	if (request.method == "POST"):
  		senttype = request.form["sender"]
