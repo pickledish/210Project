@@ -12,14 +12,15 @@
 		<link rel="stylesheet" type="text/css" href="/static/index.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<script src="/static/index.js"></script>
+		<script src="/static/search.js"></script>
 
 	</head>
 
 	<body>
 
-		<div id="contentContainer">
+		<div class="contentContainer">
 
-		<div id="mainContent">
+		<div class="mainContent">
 
 			{% if not loggedin %}
 
@@ -48,17 +49,32 @@
 
 			{% else %}
 
-				Hello how are you today <b> {{ user }} </b> <br/>
 
-				Click the buttons below to play a random, probably-awful chord! <br/>
+				Hello how are you today <b> {{ user }} </b>? <br/>
 
-				<button id="play"> Nice Chord </button> <button id="playRandom"> Random Chord </button> <br/>
+				<div class="searchContainer">
+
+					<div class="searchmainContent">
+
+						Search the chords you'd like to listen and make comments. <br/>
+
+						<p> <input type="text" id="search_text" placeholder="Ex. CEG"> <button id="search"> Search </button>  </p> </br>
+
+						<div id="resultContainer"> Nothing yet...ENTER the chord you want to listen! </div>
+
+					</div>
+
+	    	</div>
+
+				<!-- Click the buttons below to play a random, probably-awful chord! <br/> -->
+
+				<!-- <button id="play"> Nice Chord </button> <button id="playRandom"> Random Chord </button> <br/> -->
 
 				Want to not be here anymore? <a href="/logout/"> Log out Here </a> <br/>
 
-				Click here to go to the page for CEG. <a href="/CEG/"> CEG Page </a> <br/>
+				<!-- Click here to go to the page for CEG. <a href="/CEG/"> CEG Page </a> <br/> -->
 
-				Click here to go to the tone searching page. <a href="/search/"> search </a> <br/>
+				<!-- Click here to go to the tone searching page. <a href="/search/"> search </a> <br/> -->
 
 			{% endif %}
 

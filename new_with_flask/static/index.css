@@ -20,16 +20,25 @@ body {
 #reviewContainer {
 	text-align: center;
 }
-
-#contentContainer {
+.searchContainer{
+	text-align: center;
+	margin: 20px auto 20px auto;
+}
+.contentContainer {
 	margin: 20px auto 20px auto;
 	width: 40vw;
+	/*width: auto;*/
 	height: auto;
 	border: 2px solid grey;
 	border-radius: 5px;
 }
 
-#mainContent {
+.searchmainContent{
+	text-align: center;
+	width: auto;
+	height: auto;
+}
+.mainContent {
 	text-align: center;
 	width: auto;
 	height: auto;

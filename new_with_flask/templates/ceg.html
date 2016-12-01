@@ -13,29 +13,43 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 		<script src="/static/index.js"></script>
 		<script src="/static/ceg.js"></script>
+		<script src="/static/search.js"></script>
 
 	</head>
 
 	<body>
 
-		<div id="contentContainer">
+		<div class="contentContainer">
+			<div class="searchContainer">
 
-		<div id="mainContent">
+				<div class="searchmainContent">
 
-			CEG Responses are here! <br/>
+					Search for other chords <br/>
 
-			<button id="playCEG"> CEG Chord </button> <br/> <br/>
+					<p> <input type="text" id="search_text" placeholder="Ex. CEG"> <button id="search"> Search </button>  </p> </br>
 
-			Type your emotional response (e.g. I'm so happy right now!) <br/>
-			to the chord below for others to see on this page! <br/> <br/>
+					<div id="resultContainer"> Nothing yet...ENTER the chord you want to listen! </div>
 
-			<p> <input type="text" id="reaction" placeholder="I'm so happy right now!"> </p>
+				</div>
 
-			<p> <button id="submit"> Submit </button> </p> <br/>
+			</div>
 
-			<div id="reviewContainer">Nothing yet</div>
+			<div class="mainContent">
 
-		</div>
+				CEG Responses are here! <br/>
+
+				<button id="playCEG"> CEG Chord </button> <br/> <br/>
+
+				Type your emotional response (e.g. I'm so happy right now!) <br/>
+				to the chord below for others to see on this page! <br/> <br/>
+
+				<p> <input type="text" id="reaction" placeholder="I'm so happy right now!"> </p>
+
+				<p> <button id="submit"> Submit </button> </p> <br/>
+
+				<div id="reviewContainer">Nothing yet</div>
+
+			</div>
 
 		</div>
 
