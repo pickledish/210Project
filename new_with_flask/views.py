@@ -145,3 +145,23 @@ def CEGPage():
 
 	rsp = make_response(render_template("ceg.html"))
 	return rsp
+
+@app.route('/search/')
+def searchPage():
+
+	rsp = make_response(render_template("search.html"))
+	return rsp
+
+@app.route('/ajaxsearch/', methods=['POST', 'GET'])
+def ajaxsearch():
+	resultChords = []
+	if (request.method == "POST"):
+		senttype = request.form["sender"]
+		if(senttype == "search"):
+			user = request.cookies['logged_in_user']
+			word = request.form["searchText"]
+			print (word)
+			if("CEG" in word):
+				resultChords.append("/CEG/")
+
+	return render_template("result.html", resultChords = resultChords)
