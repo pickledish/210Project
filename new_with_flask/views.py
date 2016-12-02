@@ -123,12 +123,16 @@ def ajaxCEG():
 
 			newReaction = Reaction(chord = chordCEG, username_of_reactor = user, reaction_text = reaction, time_created = now)
 			newReaction.save()
-		elif(senttype == "delete"):
+		elif (senttype == "delete"):
 			toDelete = Reaction.get(Reaction.time_created == request.form["reactionTime"])
 			toDelete.delete_instance()
-		elif (senttype == "edit"):
-
+		elif (senttype == "update"):
+			print("I exist as well")
+			newText = request.form['texts']
+			print("Help meeee")
 			toEdit = Reaction.get(Reaction.time_created == request.form["reactionTime"])
+			toEdit.reaction_text = newText
+			toEdit.save()
 
 	reactionEntries = Reaction.select().where(Reaction.chord == "CEG").order_by(Reaction.time_created.desc())
 	moods = []

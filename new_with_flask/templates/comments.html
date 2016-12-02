@@ -56,13 +56,13 @@
 {% set m = review_moods[loop.index - 1] %}
 
 {% if m == "sad" %}
-	<div class="review_sad">
+	<div class="review review_sad">
 {% elif m == "excited" %}
-	<div class="review_excited">
+	<div class="review review_excited">
 {% elif m == "love" %}
-	<div class="review_love">
+	<div class="review review_love">
 {% else %}
-	<div class="review_happy">
+	<div class="review review_happy">
 {% endif %}
 
     <span class="info">User {{r.username_of_reactor}} posted on {{ r.time_created.strftime('%Y-%m-%d') }}: </span> <br/>
@@ -77,22 +77,24 @@
 {% endfor %}
 
 <script>
-$('.edit').on('click',function(event){
+$('p').on('click', ".edit", function(event){
   event.preventDefault();
+  console.log("made it here instead")
   var timeValue = event.target.attributes.getNamedItem('data-datetime').value;
   var jQuerySearch = "div[commentTime='".concat(timeValue, "']");
   var $commentDiv = $(jQuerySearch);
-  var newHtml = "<textarea style=\"height: auto; width: auto;\" ".concat("currentTime=\"", timeValue, "\">", $commentDiv.text(), "</textarea>");
+  var newHtml = "<textarea style=\"height: 50px; width: 100%;\" ".concat("commentTime=\"", timeValue, "\">", $commentDiv.text(), "</textarea>");
   $commentDiv.html(newHtml);
 
   var $editButton = $(".edit[data-datetime='".concat(timeValue, "']"));
   $editButton.text("Commit");
-  $editButton.attr('class', 'commit');
+  $editButton.removeClass('edit');
+  $editButton.addClass('commit');
 
   var $delButton = $(".delete[data-datetime='".concat(timeValue, "']"));
   $delButton.text("Cancel");
-  $delButton.attr('class', 'cancel');
-
+  $delButton.removeClass('delete');
+  $delButton.addClass('cancel'); 
 });
 
 $('.cancel').on('click',function(event){
@@ -100,7 +102,26 @@ $('.cancel').on('click',function(event){
 	var timeValue = event.target.attributes.getNamedItem('data-datetime').value;
 });
 
-$('.delete').on('click',function(event){
+$('p').on('click', ".commit", function(event) {
+	event.preventDefault();
+	console.log("made it here")
+	var timeValue = event.target.attributes.getNamedItem('data-datetime').value;
+	var newText = $("textarea[commentTime='".concat(timeValue, "']")).val();
+	console.log(newText);
+	$.ajax({
+    type: "POST",
+    url: "/ajaxCEG/",
+    data: {reactionTime: timeValue,
+           sender: "update",
+		   texts: newText},
+    dataType: "html",
+    success: function(html){
+      $("#reviewContainer").html(html);
+    }
+  });
+});
+
+$('.delete').on('click', function(event){
   event.preventDefault();
   var timeValue = event.target.attributes.getNamedItem('data-datetime').value;
   $.ajax({
