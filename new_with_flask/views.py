@@ -126,6 +126,10 @@ def ajaxCEG():
 		elif(senttype == "delete"):
 			toDelete = Reaction.get(Reaction.time_created == request.form["reactionTime"])
 			toDelete.delete_instance()
+		elif (senttype == "edit"):
+
+			toEdit = Reaction.get(Reaction.time_created == request.form["reactionTime"])
+
 	reactionEntries = Reaction.select().where(Reaction.chord == "CEG").order_by(Reaction.time_created.desc())
 	moods = []
 	for each in reactionEntries:
@@ -150,7 +154,7 @@ def CEGPage():
 def searchPage():
 
 	rsp = make_response(render_template("search.html"))
- 	return rsp
+	return rsp
 
 @app.route('/ajaxsearch/', methods=['POST', 'GET'])
 def ajaxsearch():

@@ -67,16 +67,39 @@
 
     <span class="info">User {{r.username_of_reactor}} posted on {{ r.time_created.strftime('%Y-%m-%d') }}: </span> <br/>
 
-		{{r.reaction_text}}
+		<div commentTime="{{r.time_created}}"> {{r.reaction_text}} </div>
 
 		{% if r.username_of_reactor == curuser %}
-	</br><p><button class = "edit" class="btn"> Edit </button> <button class = "delete" data-datetime = "{{r.time_created}}" class="btn"> Delete </button></p>
+	</br><p><button class = "edit" class="btn" data-datetime = "{{r.time_created}}"> Edit </button> <button class = "delete" data-datetime = "{{r.time_created}}" class="btn"> Delete </button></p>
 		{% endif %}
 	</div>
 
 {% endfor %}
 
 <script>
+$('.edit').on('click',function(event){
+  event.preventDefault();
+  var timeValue = event.target.attributes.getNamedItem('data-datetime').value;
+  var jQuerySearch = "div[commentTime='".concat(timeValue, "']");
+  var $commentDiv = $(jQuerySearch);
+  var newHtml = "<textarea style=\"height: auto; width: auto;\" ".concat("currentTime=\"", timeValue, "\">", $commentDiv.text(), "</textarea>");
+  $commentDiv.html(newHtml);
+
+  var $editButton = $(".edit[data-datetime='".concat(timeValue, "']"));
+  $editButton.text("Commit");
+  $editButton.attr('class', 'commit');
+
+  var $delButton = $(".delete[data-datetime='".concat(timeValue, "']"));
+  $delButton.text("Cancel");
+  $delButton.attr('class', 'cancel');
+
+});
+
+$('.cancel').on('click',function(event){
+	event.preventDefault();
+	var timeValue = event.target.attributes.getNamedItem('data-datetime').value;
+});
+
 $('.delete').on('click',function(event){
   event.preventDefault();
   var timeValue = event.target.attributes.getNamedItem('data-datetime').value;
