@@ -169,7 +169,7 @@ def ajaxsearch():
  			user = request.cookies['logged_in_user']
  			word = request.form["searchText"]
  			print (word)
- 			if("CEG" in word):
+ 			if(("C" in word or "c" in word) and ("E" in word or "e" in word) and ("G" in word or "g" in word)):
  				resultChords.append("CEG")
 
  	return render_template("result.html", resultChords = resultChords)
