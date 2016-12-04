@@ -111,12 +111,14 @@ def logout():
 
 @app.route('/ajaxCEG/', methods=['POST', 'GET'])
 def ajaxCEG():
-
+	#dummy chord for the initial page
+	tosearch = "YO"
 	if (request.method == "POST"):
 		senttype = request.form["sender"]
 		if(senttype == "submit"):
 			user = request.cookies['logged_in_user']
-			chordCEG = "CEG"
+			tosearch = request.form["chord"]
+			chordCEG = request.form["chord"]
 			reaction = request.form["reviewText"]
 			print (reaction)
 			now = datetime.datetime.now()
@@ -124,17 +126,21 @@ def ajaxCEG():
 			newReaction = Reaction(chord = chordCEG, username_of_reactor = user, reaction_text = reaction, time_created = now)
 			newReaction.save()
 		elif (senttype == "delete"):
+			tosearch = request.form["chord"]
 			toDelete = Reaction.get(Reaction.time_created == request.form["reactionTime"])
 			toDelete.delete_instance()
 		elif (senttype == "update"):
+			tosearch = request.form["chord"]
 			print("I exist as well")
 			newText = request.form['texts']
 			print("Help meeee")
 			toEdit = Reaction.get(Reaction.time_created == request.form["reactionTime"])
 			toEdit.reaction_text = newText
 			toEdit.save()
-
-	reactionEntries = Reaction.select().where(Reaction.chord == "CEG").order_by(Reaction.time_created.desc())
+		elif(senttype == "search"):
+			print("heyy")
+			tosearch = request.form["chord"]
+	reactionEntries = Reaction.select().where(Reaction.chord == tosearch).order_by(Reaction.time_created.desc())
 	moods = []
 	for each in reactionEntries:
 		if("sad" in each.reaction_text):
@@ -154,11 +160,9 @@ def CEGPage():
 	rsp = make_response(render_template("ceg.html"))
 	return rsp
 
-@app.route('/search/')
+@app.route('/search/', methods=["POST","GET"])
 def searchPage():
-
-	rsp = make_response(render_template("search.html"))
-	return rsp
+	return render_template("description.html", chord = request.form["chord"])
 
 @app.route('/ajaxsearch/', methods=['POST', 'GET'])
 def ajaxsearch():

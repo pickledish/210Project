@@ -13,11 +13,12 @@ $(document).ready(function($) {
 		document.getElementById("reviewContainer").textContent = "Thanks one sec . . .";
 
 		var textField = document.getElementById("reaction").value;
-
+		var rchord = document.getElementById("search_text").value;
 		$.ajax({
 			type: "POST",
 			url: "/ajaxCEG/",
 			data: {reviewText: textField,
+					   chord: rchord,
 						 sender: "submit"},
 			dataType: "html",
 			success: function(html){

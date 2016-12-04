@@ -94,7 +94,7 @@ $('p').on('click', ".edit", function(event){
   var $delButton = $(".delete[data-datetime='".concat(timeValue, "']"));
   $delButton.text("Cancel");
   $delButton.removeClass('delete');
-  $delButton.addClass('cancel'); 
+  $delButton.addClass('cancel');
 });
 
 $('.cancel').on('click',function(event){
@@ -107,11 +107,13 @@ $('p').on('click', ".commit", function(event) {
 	console.log("made it here")
 	var timeValue = event.target.attributes.getNamedItem('data-datetime').value;
 	var newText = $("textarea[commentTime='".concat(timeValue, "']")).val();
+	var rchord = document.getElementById("search_text").value;
 	console.log(newText);
 	$.ajax({
     type: "POST",
     url: "/ajaxCEG/",
     data: {reactionTime: timeValue,
+					 chord: rchord,
            sender: "update",
 		   texts: newText},
     dataType: "html",
@@ -124,10 +126,12 @@ $('p').on('click', ".commit", function(event) {
 $('.delete').on('click', function(event){
   event.preventDefault();
   var timeValue = event.target.attributes.getNamedItem('data-datetime').value;
+	var rchord = document.getElementById("search_text").value;
   $.ajax({
     type: "POST",
     url: "/ajaxCEG/",
     data: {reactionTime: timeValue,
+					 chord:rchord,
            sender: "delete"},
     dataType: "html",
     success: function(html){
