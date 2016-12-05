@@ -6,6 +6,7 @@ from flask import Flask
 from flask import render_template, request, make_response
 
 import datetime
+import hashlib
 
 app = Flask(__name__)
 db = SqliteDatabase("BigTable.db")
@@ -50,7 +51,10 @@ def index():
 			return render_template("index.html", status = "failure")
 
 		old_time = this_person.time_created
-		attempted_hashed_pw = passw # TODO: No but like actually hash it
+
+		prehash = passw + old_time.ctime()
+
+		attempted_hashed_pw = hashlib.sha256(prehash.encode()).hexdigest() # TODO: No but like actually hash it
 
 		# This will fail if their password was wrong, so we once again return with a failed state
 		if (attempted_hashed_pw != this_person.hashed_password):
@@ -88,7 +92,12 @@ def makeAccount():
 		except DoesNotExist:
 
 			now = datetime.datetime.now()
-			hashedpw = passw # TODO: No but like actually hash it please
+
+			prehash = passw + now.ctime()
+			hashedpw = hashlib.sha256(prehash.encode()).hexdigest()
+
+
+			 # TODO: No but like actually hash it please
 			newUser = User(username = usern, hashed_password = hashedpw, time_created = now)
 			newUser.save()
 
