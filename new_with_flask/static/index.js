@@ -183,14 +183,50 @@ $(document).ready(function() {
 
 	});
 
-	$("#playCEG").click(function( event ) {
+	
+	$("#playXXX").click(function( event ) {
 
-		var freq1 = noteValues['C5'];
-		var freq2 = noteValues['E5'];
-		var freq3 = noteValues['G5'];
-
+	freqs = [];
+	var number = 0;
+	var chordname = document.getElementById("chordname").getAttribute("data-chord");
+	if((chordname.search("A") != -1)||(chordname.search("a") != -1)){
+		freqs.push('A5');
+		number = number + 1;
+	}
+	if((chordname.search("B") != -1)||(chordname.search("b") != -1)){
+		freqs.push('B5');
+		number = number + 1;
+	}
+	if((chordname.search("C") != -1)||(chordname.search("c") != -1)){
+		freqs.push('C5');
+		number = number + 1;
+	}
+	if((chordname.search("D") != -1)||(chordname.search("d") != -1)){
+		freqs.push('D5');
+		number = number + 1;
+	}
+	if((chordname.search("E") != -1)||(chordname.search("e") != -1)){
+		freqs.push('E5');
+		number = number + 1;
+	}
+	if((chordname.search("F") != -1)||(chordname.search("f") != -1)){
+		freqs.push('F5');
+		number = number + 1;
+	}
+	if((chordname.search("G") != -1)||(chordname.search("g") != -1)){
+		freqs.push('G5');
+		number = number + 1;
+	}
+	if(number == 3){
+		var freq1 = noteValues[freqs[0]];
+		var freq2 = noteValues[freqs[1]];
+		var freq3 = noteValues[freqs[2]];
+		// console.log(noteValues);
+		// console.log(freq1);
+		// console.log(freq2);
+		// console.log(freq3);
 		playNotes(freq1, freq2, freq3);
-
+	}
 	});
 
 
