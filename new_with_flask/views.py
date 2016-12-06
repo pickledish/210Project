@@ -3,7 +3,7 @@ from peewee import *
 
 # Even simpler web framework for Python. @app.route() commands route URLs to functions
 from flask import Flask
-from flask import render_template, request, make_response
+from flask import render_template, request, make_response, url_for
 
 import datetime
 import hashlib
@@ -120,7 +120,7 @@ def logout():
 
 @app.route('/ajaxCEG/', methods=['POST', 'GET'])
 def ajaxCEG():
-	#dummy chord for the initial page
+	#dummy chord
 	tosearch = "YO"
 	if (request.method == "POST"):
 		senttype = request.form["sender"]
@@ -129,7 +129,6 @@ def ajaxCEG():
 			tosearch = request.form["chord"]
 			chordCEG = request.form["chord"]
 			reaction = request.form["reviewText"]
-			print (reaction)
 			now = datetime.datetime.now()
 
 			newReaction = Reaction(chord = chordCEG, username_of_reactor = user, reaction_text = reaction, time_created = now)
@@ -140,15 +139,14 @@ def ajaxCEG():
 			toDelete.delete_instance()
 		elif (senttype == "update"):
 			tosearch = request.form["chord"]
-			print("I exist as well")
 			newText = request.form['texts']
-			print("Help meeee")
 			toEdit = Reaction.get(Reaction.time_created == request.form["reactionTime"])
 			toEdit.reaction_text = newText
 			toEdit.save()
 		elif(senttype == "search"):
-			print("heyy")
 			tosearch = request.form["chord"]
+	elif(request.method == "GET"):
+		tosearch = request.args.get("chord")
 	reactionEntries = Reaction.select().where(Reaction.chord == tosearch).order_by(Reaction.time_created.desc())
 	moods = []
 	for each in reactionEntries:
@@ -165,24 +163,14 @@ def ajaxCEG():
 
 @app.route('/CEG/')
 def CEGPage():
-
-	rsp = make_response(render_template("ceg.html"))
+	rsp = make_response(render_template("ceg.html", chord = request.args.get("chord")))
 	return rsp
+
+@app.route('/indexsearch/', methods=["POST","GET"])
+def indexsearchPage():
+	render_template("ceg.html", chord = request.form["chord"])
+	return url_for(".CEGPage",chord=request.form["chord"])
 
 @app.route('/search/', methods=["POST","GET"])
 def searchPage():
 	return render_template("description.html", chord = request.form["chord"])
-
-@app.route('/ajaxsearch/', methods=['POST', 'GET'])
-def ajaxsearch():
- 	resultChords = []
- 	if (request.method == "POST"):
- 		senttype = request.form["sender"]
- 		if(senttype == "search"):
- 			user = request.cookies['logged_in_user']
- 			word = request.form["searchText"]
- 			print (word)
- 			if(("C" in word or "c" in word) and ("E" in word or "e" in word) and ("G" in word or "g" in word)):
- 				resultChords.append("CEG")
-
- 	return render_template("result.html", resultChords = resultChords)

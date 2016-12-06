@@ -7,7 +7,7 @@
 		<meta name=description content="">
 		<meta name=viewport content="width=device-width, initial-scale=1">
 
-		<title> ToneTone -- Welcome! </title>
+		<title> ToneTone -- Chord! </title>
 
 		<link rel="stylesheet" type="text/css" href="/static/index.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -23,7 +23,6 @@
 			<div class="searchContainer">
 
 				<div class="searchmainContent">
-
 					Search for other chords <br/>
 
 					<p> <input type="text" id="search_text" placeholder="Ex. CEG"> <button id="search"> Search </button>  </p> </br>
@@ -34,13 +33,13 @@
 
 			<div class="mainContent">
 				<div id = "descriptionContainer">
-					Search for the Chord you would like to listen to!
-					<!-- CEG Responses are here! <br/>
 
-					<button id="playCEG"> CEG Chord </button> <br/> <br/>
+					<H2 id="chordname" data-chord="{{chord}}">{{chord}}</H2> Responses are here! <br/>
+
+					<button id="playCEG"> {{chord}} Chord </button> <br/> <br/>
 
 					Type your emotional response (e.g. I'm so happy right now!) <br/>
-					to the chord below for others to see on this page! <br/> <br/> -->
+					to the {{chord}} chord below for others to see on this page! <br/> <br/>
 
 				</div>
 				<p> <input type="text" id="reaction" placeholder="I'm so happy right now!"> </p>
@@ -59,7 +58,7 @@
 $('#search').on('click', function(event){
   event.preventDefault();
   var searchchord = document.getElementById("search_text").value;
-	console.log(searchchord);
+	var chordname = document.getElementById("chordname").value;
   $.ajax({
     type: "POST",
     url: "/search/",
@@ -77,6 +76,7 @@ $('#search').on('click', function(event){
 					$("#reviewContainer").html(comments);
 				}
 			});
+			$("#search_text").val("");
       $("#descriptionContainer").html(html);
     }
   });

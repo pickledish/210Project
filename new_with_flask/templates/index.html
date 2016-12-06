@@ -12,7 +12,6 @@
 		<link rel="stylesheet" type="text/css" href="/static/index.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<script src="/static/index.js"></script>
-		<script src="/static/search.js"></script>
 
 	</head>
 
@@ -58,23 +57,18 @@
 
 						Search the chords you'd like to listen and make comments. <br/>
 
-						<p> <input type="text" id="search_text" placeholder="Ex. CEG"> <button id="search"> Search </button>  </p> </br>
 
-						<div id="resultContainer"> Nothing yet...ENTER the chord you want to listen! </div>
+						<p> <input type="text" id="search_text" placeholder="Ex. CEG"> <button id="indexsearch"> Search </button>  </p> </br>
 
 					</div>
 
 	    	</div>
 
-				<!-- Click the buttons below to play a random, probably-awful chord! <br/> -->
+				Click the buttons below to play a random, probably-awful chord! <br/>
 
-				<!-- <button id="play"> Nice Chord </button> <button id="playRandom"> Random Chord </button> <br/> -->
+				<button id="play"> Nice Chord </button> <button id="playRandom"> Random Chord </button> <br/>
 
 				Want to not be here anymore? <a href="/logout/"> Log out Here </a> <br/>
-
-				<!-- Click here to go to the page for CEG. <a href="/CEG/"> CEG Page </a> <br/> -->
-
-				<!-- Click here to go to the tone searching page. <a href="/search/"> search </a> <br/> -->
 
 			{% endif %}
 
@@ -83,5 +77,23 @@
 		</div>
 
 	</body>
+	<script>
+	$('#indexsearch').on('click', function(event) {
 
+		event.preventDefault();
+
+		var textField = document.getElementById("search_text").value;
+
+		$.ajax({
+			type: "POST",
+			url: "/indexsearch/",
+			data: {chord: textField,
+						 sender: "search"},
+			dataType: "html",
+			success: function(html){
+					window.location = html;
+			}
+		});
+	});
+	</script>
 </html>
