@@ -77,29 +77,48 @@
 {% endfor %}
 
 <script>
+
+var commentText = "";
+
 $('p').on('click', ".edit", function(event){
-  event.preventDefault();
-  console.log("made it here instead")
-  var timeValue = event.target.attributes.getNamedItem('data-datetime').value;
-  var jQuerySearch = "div[commentTime='".concat(timeValue, "']");
-  var $commentDiv = $(jQuerySearch);
-  var newHtml = "<textarea style=\"height: 50px; width: 100%;\" ".concat("commentTime=\"", timeValue, "\">", $commentDiv.text(), "</textarea>");
-  $commentDiv.html(newHtml);
-
-  var $editButton = $(".edit[data-datetime='".concat(timeValue, "']"));
-  $editButton.text("Commit");
-  $editButton.removeClass('edit');
-  $editButton.addClass('commit');
-
-  var $delButton = $(".delete[data-datetime='".concat(timeValue, "']"));
-  $delButton.text("Cancel");
-  $delButton.removeClass('delete');
-  $delButton.addClass('cancel'); 
-});
-
-$('.cancel').on('click',function(event){
 	event.preventDefault();
 	var timeValue = event.target.attributes.getNamedItem('data-datetime').value;
+	var jQuerySearch = "div[commentTime='".concat(timeValue, "']");
+	var $commentDiv = $(jQuerySearch);
+	commentText = $commentDiv.text();
+	console.log(commentText);
+	var newHtml = "<textarea style=\"height: 50px; width: 100%;\" ".concat("commentTime=\"", timeValue, "\">", $commentDiv.text(), "</textarea>");
+	$commentDiv.html(newHtml);
+
+	var $editButton = $(".edit[data-datetime='".concat(timeValue, "']"));
+	$editButton.text("Commit");
+	$editButton.removeClass('edit');
+	$editButton.addClass('commit');
+
+	var $delButton = $(".delete[data-datetime='".concat(timeValue, "']"));
+	$delButton.text("Cancelll");
+	$delButton.removeClass('delete');
+	$delButton.addClass('cancel'); 
+});
+
+$('p').on('click', ".cancel", function(event){
+	event.preventDefault();
+	console.log("cancel clicked");
+	var timeValue = event.target.attributes.getNamedItem('data-datetime').value;
+	var jQuerySearch = "div[commentTime='".concat(timeValue, "']");
+	var $commentDiv = $(jQuerySearch);
+	$commentDiv.html(commentText);
+
+	var $editButton = $(".commit[data-datetime='".concat(timeValue, "']"));
+	$editButton.text("Edit");
+	$editButton.removeClass('commit');
+	$editButton.addClass('edit');
+
+	var $delButton = $(".cancel[data-datetime='".concat(timeValue, "']"));
+	$delButton.text("Delete");
+	$delButton.removeClass('cancel');
+	$delButton.addClass('delete');
+
 });
 
 $('p').on('click', ".commit", function(event) {
@@ -121,7 +140,7 @@ $('p').on('click', ".commit", function(event) {
   });
 });
 
-$('.delete').on('click', function(event){
+$('p').on('click', ".delete", function(event){
   event.preventDefault();
   var timeValue = event.target.attributes.getNamedItem('data-datetime').value;
   $.ajax({
