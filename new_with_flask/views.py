@@ -3,9 +3,10 @@ from peewee import *
 
 # Even simpler web framework for Python. @app.route() commands route URLs to functions
 from flask import Flask
-from flask import render_template, request, make_response
+from flask import render_template, request, make_response, url_for
 
 import datetime
+import hashlib
 
 app = Flask(__name__)
 db = SqliteDatabase("BigTable.db")
@@ -50,7 +51,10 @@ def index():
 			return render_template("index.html", status = "failure")
 
 		old_time = this_person.time_created
-		attempted_hashed_pw = passw # TODO: No but like actually hash it
+
+		prehash = passw + old_time.ctime()
+
+		attempted_hashed_pw = hashlib.sha256(prehash.encode()).hexdigest() # TODO: No but like actually hash it
 
 		# This will fail if their password was wrong, so we once again return with a failed state
 		if (attempted_hashed_pw != this_person.hashed_password):
@@ -88,7 +92,12 @@ def makeAccount():
 		except DoesNotExist:
 
 			now = datetime.datetime.now()
-			hashedpw = passw # TODO: No but like actually hash it please
+
+			prehash = passw + now.ctime()
+			hashedpw = hashlib.sha256(prehash.encode()).hexdigest()
+
+
+			 # TODO: No but like actually hash it please
 			newUser = User(username = usern, hashed_password = hashedpw, time_created = now)
 			newUser.save()
 
@@ -111,30 +120,34 @@ def logout():
 
 @app.route('/ajaxCEG/', methods=['POST', 'GET'])
 def ajaxCEG():
-
+	#dummy chord
+	tosearch = "YO"
 	if (request.method == "POST"):
 		senttype = request.form["sender"]
 		if(senttype == "submit"):
 			user = request.cookies['logged_in_user']
-			chordCEG = "CEG"
+			tosearch = request.form["chord"]
+			chordCEG = request.form["chord"]
 			reaction = request.form["reviewText"]
-			print (reaction)
 			now = datetime.datetime.now()
 
 			newReaction = Reaction(chord = chordCEG, username_of_reactor = user, reaction_text = reaction, time_created = now)
 			newReaction.save()
 		elif (senttype == "delete"):
+			tosearch = request.form["chord"]
 			toDelete = Reaction.get(Reaction.time_created == request.form["reactionTime"])
 			toDelete.delete_instance()
 		elif (senttype == "update"):
-			print("I exist as well")
+			tosearch = request.form["chord"]
 			newText = request.form['texts']
-			print("Help meeee")
 			toEdit = Reaction.get(Reaction.time_created == request.form["reactionTime"])
 			toEdit.reaction_text = newText
 			toEdit.save()
-
-	reactionEntries = Reaction.select().where(Reaction.chord == "CEG").order_by(Reaction.time_created.desc())
+		elif(senttype == "search"):
+			tosearch = request.form["chord"]
+	elif(request.method == "GET"):
+		tosearch = request.args.get("chord")
+	reactionEntries = Reaction.select().where(Reaction.chord == tosearch).order_by(Reaction.time_created.desc())
 	moods = []
 	for each in reactionEntries:
 		if("sad" in each.reaction_text):
@@ -150,26 +163,14 @@ def ajaxCEG():
 
 @app.route('/CEG/')
 def CEGPage():
-
-	rsp = make_response(render_template("ceg.html"))
+	rsp = make_response(render_template("ceg.html", chord = request.args.get("chord")))
 	return rsp
 
-@app.route('/search/')
+@app.route('/indexsearch/', methods=["POST","GET"])
+def indexsearchPage():
+	render_template("ceg.html", chord = request.form["chord"])
+	return url_for(".CEGPage",chord=request.form["chord"])
+
+@app.route('/search/', methods=["POST","GET"])
 def searchPage():
-
-	rsp = make_response(render_template("search.html"))
-	return rsp
-
-@app.route('/ajaxsearch/', methods=['POST', 'GET'])
-def ajaxsearch():
- 	resultChords = []
- 	if (request.method == "POST"):
- 		senttype = request.form["sender"]
- 		if(senttype == "search"):
- 			user = request.cookies['logged_in_user']
- 			word = request.form["searchText"]
- 			print (word)
- 			if(("C" in word or "c" in word) and ("E" in word or "e" in word) and ("G" in word or "g" in word)):
- 				resultChords.append("CEG")
-
- 	return render_template("result.html", resultChords = resultChords)
+	return render_template("description.html", chord = request.form["chord"])

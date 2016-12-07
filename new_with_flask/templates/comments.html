@@ -1,5 +1,3 @@
-<!-- <script src="/static/ceg.js"></script> -->
-
 <style type="text/css">
 	.review_sad {
 		height: auto;
@@ -41,10 +39,6 @@
 		background-image:url({{ url_for('static', filename = 'happy.png') }});
 		background-size:65px 65px;
 	}
-  /*.btn{
-		font-size: 12px
-		background-color: green
-	}*/
 	.info {
 		text-align: left;
 		color: grey;
@@ -126,11 +120,15 @@ $('p').on('click', ".commit", function(event) {
 	console.log("made it here")
 	var timeValue = event.target.attributes.getNamedItem('data-datetime').value;
 	var newText = $("textarea[commentTime='".concat(timeValue, "']")).val();
+	var chordname = document.getElementById("chordname");
+	var rchord = chordname.attributes.getNamedItem("data-chord").value;
+
 	console.log(newText);
 	$.ajax({
     type: "POST",
     url: "/ajaxCEG/",
     data: {reactionTime: timeValue,
+					 chord: rchord,
            sender: "update",
 		   texts: newText},
     dataType: "html",
@@ -143,10 +141,14 @@ $('p').on('click', ".commit", function(event) {
 $('p').on('click', ".delete", function(event){
   event.preventDefault();
   var timeValue = event.target.attributes.getNamedItem('data-datetime').value;
+	var chordname = document.getElementById("chordname");
+	var rchord = chordname.attributes.getNamedItem("data-chord").value;
+
   $.ajax({
     type: "POST",
     url: "/ajaxCEG/",
     data: {reactionTime: timeValue,
+					 chord:rchord,
            sender: "delete"},
     dataType: "html",
     success: function(html){
