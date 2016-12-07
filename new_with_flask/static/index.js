@@ -138,6 +138,31 @@ var context = new AudioContext();
 		'B7': 3951.07,
 		'C8': 4186.01
 	}
+function toNum(letter1){
+	var num1 = -1;
+	if(letter1 == 'C'){
+		num1 = 1;
+	}else if (letter1 == 'D') {
+		num1 = 2;
+	}else if (letter1 == 'E') {
+		num1 = 3;
+	}else if (letter1 == 'F') {
+		num1 = 4;
+	}else if (letter1 == 'G' ) {
+		num1 = 5;
+	}else if (letter1 == 'A') {
+		num1 = 6;
+	}else if (letter1 == 'B') {
+		num1 = 7;
+	}
+	return num1;
+}
+
+function toNV(note, number){
+	var result = note.concat(number);
+	console.log(result);
+	return result;
+}
 
 function playNotes(note1, note2, note3) {
 
@@ -187,46 +212,39 @@ $(document).ready(function() {
 	$("#playXXX").click(function( event ) {
 
 	freqs = [];
-	var number = 0;
+	numNow = 5;
+ 	var number = 0;
+
 	var chordname = document.getElementById("chordname").getAttribute("data-chord");
-	if((chordname.search("A") != -1)||(chordname.search("a") != -1)){
-		freqs.push('A5');
-		number = number + 1;
+	var letterNow = chordname.charAt(0);
+	var element1 = toNV(letterNow,5);
+	freqs.push(element1);
+	var letter2 = chordname.charAt(1);
+	if(toNum(letter2) > toNum(letterNow)){
+		var element2 = toNV(letter2,numNow)
+	}else{
+		numNow ++;
+		var element2 = toNV(letter2,numNow)
 	}
-	if((chordname.search("B") != -1)||(chordname.search("b") != -1)){
-		freqs.push('B5');
-		number = number + 1;
+	freqs.push(element2);
+	letterNow = letter2;
+	var letter3 = chordname.charAt(2);
+	if(toNum(letter3) > toNum(letterNow)){
+		var element3 = toNV(letter3,numNow)
+	}else{
+		numNow ++;
+		var element3 = toNV(letter3,numNow)
 	}
-	if((chordname.search("C") != -1)||(chordname.search("c") != -1)){
-		freqs.push('C5');
-		number = number + 1;
-	}
-	if((chordname.search("D") != -1)||(chordname.search("d") != -1)){
-		freqs.push('D5');
-		number = number + 1;
-	}
-	if((chordname.search("E") != -1)||(chordname.search("e") != -1)){
-		freqs.push('E5');
-		number = number + 1;
-	}
-	if((chordname.search("F") != -1)||(chordname.search("f") != -1)){
-		freqs.push('F5');
-		number = number + 1;
-	}
-	if((chordname.search("G") != -1)||(chordname.search("g") != -1)){
-		freqs.push('G5');
-		number = number + 1;
-	}
-	if(number == 3){
-		var freq1 = noteValues[freqs[0]];
-		var freq2 = noteValues[freqs[1]];
-		var freq3 = noteValues[freqs[2]];
-		// console.log(noteValues);
-		// console.log(freq1);
-		// console.log(freq2);
-		// console.log(freq3);
-		playNotes(freq1, freq2, freq3);
-	}
+	freqs.push(element3);
+
+	var freq1 = noteValues[freqs[0]];
+	var freq2 = noteValues[freqs[1]];
+	var freq3 = noteValues[freqs[2]];
+	console.log(freq1);
+	console.log(freq2);
+	console.log(freq3);
+	playNotes(freq1, freq2, freq3);
+
 	});
 
 
