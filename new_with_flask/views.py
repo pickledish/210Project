@@ -153,7 +153,7 @@ def ajaxCEG():
 		if("sad" in each.reaction_text):
 			moods.append("sad")
 		elif("excit" in each.reaction_text):
-			moods.append("excited")
+			moods.append("excit")
 		elif("love" in each.reaction_text):
 			moods.append("love")
 		else:

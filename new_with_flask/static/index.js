@@ -140,27 +140,47 @@ var context = new AudioContext();
 	}
 function toNum(letter1){
 	var num1 = -1;
-	if(letter1 == 'C'){
+	if(letter1.charAt(0)=='C'){
 		num1 = 1;
-	}else if (letter1 == 'D') {
+	}else if (letter1.charAt(0)=='D') {
 		num1 = 2;
-	}else if (letter1 == 'E') {
+	}else if (letter1.charAt(0)=='E') {
 		num1 = 3;
-	}else if (letter1 == 'F') {
+	}else if (letter1.charAt(0)=='F') {
 		num1 = 4;
-	}else if (letter1 == 'G' ) {
+	}else if (letter1.charAt(0)== 'G' ) {
 		num1 = 5;
-	}else if (letter1 == 'A') {
+	}else if (letter1.charAt(0)== 'A') {
 		num1 = 6;
-	}else if (letter1 == 'B') {
+	}else if (letter1.charAt(0)== 'B') {
 		num1 = 7;
 	}
 	return num1;
 }
 
+function parseInput(input){
+	var notes = [];
+	var Pcounter = 0;
+	var curnote = input.charAt(0);
+
+	for(var i = 1, l = input.length;i<l;i++){
+		if(input.charAt(i)=="#"){
+			curnote = curnote.concat("#");
+		}
+		else if(input.charAt(i)=="b"){
+			curnote = curnote.concat("b");
+		}
+		else{
+			notes[Pcounter] = curnote;
+			curnote = input.charAt(i);
+			Pcounter++;
+		}
+	}
+		notes[Pcounter] = curnote;
+	return notes;
+}
 function toNV(note, number){
 	var result = note.concat(number);
-	console.log(result);
 	return result;
 }
 
@@ -208,7 +228,7 @@ $(document).ready(function() {
 
 	});
 
-	
+
 	$("#playXXX").click(function( event ) {
 
 	freqs = [];
@@ -216,33 +236,26 @@ $(document).ready(function() {
  	var number = 0;
 
 	var chordname = document.getElementById("chordname").getAttribute("data-chord");
-	var letterNow = chordname.charAt(0);
-	var element1 = toNV(letterNow,5);
-	freqs.push(element1);
-	var letter2 = chordname.charAt(1);
-	if(toNum(letter2) > toNum(letterNow)){
-		var element2 = toNV(letter2,numNow)
-	}else{
-		numNow ++;
-		var element2 = toNV(letter2,numNow)
+	var notesArray = parseInput(chordname);
+	var counter = 1;
+	var letterNow = notesArray[0];
+	freqs.push(toNV(letterNow,5));
+
+	while(counter<notesArray.length){
+		var nextLetter = notesArray[counter];
+		if(toNum(nextLetter) > toNum(letterNow)){
+			var newel = toNV(nextLetter,numNow);
+		}else{
+			numNow ++;
+			var newel = toNV(nextLetter,numNow);
+		}
+		freqs.push(newel);
+		counter++;
 	}
-	freqs.push(element2);
-	letterNow = letter2;
-	var letter3 = chordname.charAt(2);
-	if(toNum(letter3) > toNum(letterNow)){
-		var element3 = toNV(letter3,numNow)
-	}else{
-		numNow ++;
-		var element3 = toNV(letter3,numNow)
-	}
-	freqs.push(element3);
 
 	var freq1 = noteValues[freqs[0]];
 	var freq2 = noteValues[freqs[1]];
 	var freq3 = noteValues[freqs[2]];
-	console.log(freq1);
-	console.log(freq2);
-	console.log(freq3);
 	playNotes(freq1, freq2, freq3);
 
 	});
